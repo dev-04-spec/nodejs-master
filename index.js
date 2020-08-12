@@ -2,15 +2,24 @@ const express = require('express');
 const app = express();
 const Joi = require('joi');
 const helmet = require('helmet');
-const morgan=require('morgan');
+const morgan = require('morgan');
 
 const logger = require('./logger');
 
 app.use(express.json()); //this middleware function parses incomming request in json payload
-app.use(express.urlencoded({expanded:true}));// key=value&key=value 
+app.use(express.urlencoded({   // key=value&key=value 
+    expanded: true
+})); 
 app.use(express.static('public'));
 app.use(helmet());
-app.use(morgan('tiny'));
+
+console.log(`NODE_ENV:${process.env.NODE_ENV}`);
+console.log(`app :${app.get('env')}`);
+
+if(app.get('env')=='development'){
+    app.use(morgan('tiny'));
+    console.log('Morgan enabled...');    
+}
 
 app.use(function (req, res, next) {
     console.log('Logging in...');
