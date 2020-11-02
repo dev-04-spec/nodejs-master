@@ -1,0 +1,6 @@
+{
+    "name":"nodejs-master-development",
+    "mail":{
+        "host":"dev-mail-server"
+    }
+}
